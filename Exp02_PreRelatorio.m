@@ -56,7 +56,22 @@ plot_voltage_time(y4, t, 'Amplificador 4');
 
 load('y.mat');
 
-plot_voltage_time(y1, t, 'Amplificador 1');
-plot_voltage_time(y2, t, 'Amplificador 2');
-plot_voltage_time(y3, t, 'Amplificador 3');
-plot_voltage_time(y4, t, 'Amplificador 4');
+t1 = 0:1e-3:length(y1)/1e3 - 1e-3;
+t2 = 0:1e-3:length(y2)/1e3 - 1e-3;
+t3 = 0:1e-3:length(y3)/1e3 - 1e-3;
+t4 = 0:1e-3:length(y4)/1e3 - 1e-3;
+
+u1 = y1(:,2);
+u2 = y2(:,2);
+u3 = y3(:,2);
+u4 = y4(:,2);
+
+y1 = y1(:,1);
+y2 = y2(:,1);
+y3 = y3(:,1);
+y4 = y4(:,1);
+
+plot_voltage_time(y1, t1, 'Amplificador 1');
+plot_voltage_time(y2, t2, 'Amplificador 2');
+plot_voltage_time(y3, t3, 'Amplificador 3');
+plot_voltage_time(y4, t4, 'Amplificador 4');
