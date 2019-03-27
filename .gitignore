@@ -1,4 +1,4 @@
-imagens/
+imagens/*.png
 *.pdf
 *.zip
 *~
