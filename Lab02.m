@@ -131,9 +131,9 @@ p(3) = ((1-b)*exp(-1) - (1-a)*exp(-2))/(1-a-exp(-1));
 x = roots(p);
 x_tal = x(1);
 
-tal3 = -tal2/log(x_tal);
+tal3 = tal2/log(x_tal);
 
-G3_real = minreal(k3/(-tal3*s+1));
+G3_real = minreal(k3/(tal3*s+1));
 y3_model = lsim(G1_real*G2_real*G3_real, u3, t3);
 
 plot_voltage_time_compare([y3 y3_model], t3, 'Amplificador 3');
