@@ -4,7 +4,7 @@ function plot_voltage_time(y, t, name)
 %   The image will be saved automatically if the folder is argument 
 %   is given
     
-    name = strcat(name, ' - Saída de Tensão');
+    name = strcat(name, ' - Tensão de Saída');
 
     figure;
     

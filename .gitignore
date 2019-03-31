@@ -2,3 +2,5 @@ imagens/*.png
 *.pdf
 *.zip
 *~
+*.slxc
+*.autosave
