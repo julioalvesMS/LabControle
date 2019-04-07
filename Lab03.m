@@ -117,7 +117,7 @@ plot_voltage_time(y(:,2),y(:,1),'Ziegler-Nichols Discreto - Onda Quadrada')
 
 SquareWave = 0;
 sim('ziegler_nichols_2.slx')
-plot_voltage_time(y(:,2),y(:,1),'Ziegler-Nichols - Onda Triangular')
+plot_voltage_time(y(:,2),y(:,1),'Ziegler-Nichols Discreto - Onda Triangular')
 
 
 %% Controlador PID - Projeto
@@ -179,4 +179,4 @@ plot_voltage_time(y(:,2),y(:,1),'PID Discreto - Onda Quadrada')
 
 SquareWave = 0;
 sim('ziegler_nichols_2.slx')
-plot_voltage_time(y(:,2),y(:,1),'PID - Onda Triangular')
+plot_voltage_time(y(:,2),y(:,1),'PID Discreto - Onda Triangular')
