@@ -49,6 +49,26 @@ R1_R3 = sys.kp*R1_R2;
 R1R3 = sys.kd*R1_R2/C;
 R1R2 = tau*R1_R2/C;
 
+%% Sistema ideal
+
+eq = [1 -R1_R2 R1R2]
+R1 = max(roots(eq));
+R2 = R1R2/R1;
+R3 = R1_R3 - R1;
+
+Ci = (R1*R3*C^2*s^2+ (R1+R3)*C*s+ 1)/(R1*R2*C^2*s^2+ (R1+R2)*C*s);
+Ci = minreal(Ci);
+
+Fi = Ci*G/(1+Ci*G);
+
+f = 0.5;
+ta = 0:1e-6:10;
+ra = 0.5*square(2*pi*ta*f) + 0.5;
+yi = lsim(Fi, ra, ta);
+plot_voltage_time_compare_model(yi, ta, y(:,2), y(:,1), 'Controlador Analógico')
+
+%% Criavel
+
 R1 = 15e3;
 R2 = 2.2e3;
 R3 = 22e3;
@@ -58,9 +78,6 @@ Cr = minreal(Cr);
 
 Fr = Cr*G/(1+Cr*G);
 
-f = 0.5;
-tr = 0:1e-6:10;
-rr = 0.5*square(2*pi*tr*f) + 0.5;
-yr = lsim(Fr, rr, tr);
+yr = lsim(Fr, ra, ta);
 
-plot_voltage_time_compare_model(yr, tr, y(:,2), y(:,1), 'Controlador Analógico')
+plot_voltage_time_compare_model(yr, ta, yi, ta, 'Controlador Analógico')
