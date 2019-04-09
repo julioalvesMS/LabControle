@@ -12,6 +12,7 @@ addpath(genpath('simulink'))
 s = tf('s');
 
 load('system.mat');
+G = (4.069e4/(s^3 + 97.63*s^2 + 1977*s))/2;
 
 %% Controlador Proporcional - Sisotool
 

@@ -12,41 +12,45 @@ addpath(genpath('simulink'))
 s = tf('s');
 
 load('system.mat');
-load('experimental_data.mat');
+load('experimental_data_2.mat');
 
 T = 0.002;
 
-standard_size = round(10/T);
 
-prop_s_r = prop_square(1:standard_size,1);
-prop_s_u = prop_square(1:standard_size,2);
-prop_s_y = prop_square(1:standard_size,3);
-prop_s_t = (0:T:standard_size*T-T)';
+standard_size = round(9/T);
+start_position = round(0.5/T)+1;
 
-prop_t_r = prop_triangular(1:standard_size,1);
-prop_t_u = prop_triangular(1:standard_size,2);
-prop_t_y = prop_triangular(1:standard_size,3);
-prop_t_t = (0:T:standard_size*T-T)';
+simulation_time = (standard_size-start_position)*T;
 
-zn_s_r = zn_square(1:standard_size,1);
-zn_s_u = zn_square(1:standard_size,2);
-zn_s_y = zn_square(1:standard_size,3);
-zn_s_t = (0:T:standard_size*T-T)';
+prop_s_r = prop_square(start_position:standard_size,1);
+prop_s_u = prop_square(start_position:standard_size,2);
+prop_s_y = prop_square(start_position:standard_size,3);
+prop_s_t = (0:T:(standard_size-start_position)*T)';
 
-zn_t_r = zn_triangular(1:standard_size,1);
-zn_t_u = zn_triangular(1:standard_size,2);
-zn_t_y = zn_triangular(1:standard_size,3);
-zn_t_t = (0:T:standard_size*T-T)';
+prop_t_r = prop_triangular(start_position:standard_size,1);
+prop_t_u = prop_triangular(start_position:standard_size,2);
+prop_t_y = prop_triangular(start_position:standard_size,3);
+prop_t_t = (0:T:(standard_size-start_position)*T)';
 
-pid_s_r = pid_square(1:standard_size,1);
-pid_s_u = pid_square(1:standard_size,2);
-pid_s_y = pid_square(1:standard_size,3);
-pid_s_t = (0:T:standard_size*T-T)';
+zn_s_r = zn_square(start_position:standard_size,1);
+zn_s_u = zn_square(start_position:standard_size,2);
+zn_s_y = zn_square(start_position:standard_size,3);
+zn_s_t = (0:T:(standard_size-start_position)*T)';
 
-pid_t_r = pid_triangular(1:standard_size,1);
-pid_t_u = pid_triangular(1:standard_size,2);
-pid_t_y = pid_triangular(1:standard_size,3);
-pid_t_t = (0:T:standard_size*T-T)';
+zn_t_r = zn_triangular(start_position:standard_size,1);
+zn_t_u = zn_triangular(start_position:standard_size,2);
+zn_t_y = zn_triangular(start_position:standard_size,3);
+zn_t_t = (0:T:(standard_size-start_position)*T)';
+
+pid_s_r = pid_square(start_position:standard_size,1);
+pid_s_u = pid_square(start_position:standard_size,2);
+pid_s_y = pid_square(start_position:standard_size,3);
+pid_s_t = (0:T:(standard_size-start_position)*T)';
+
+pid_t_r = pid_triangular(start_position:standard_size,1);
+pid_t_u = pid_triangular(start_position:standard_size,2);
+pid_t_y = pid_triangular(start_position:standard_size,3);
+pid_t_t = (0:T:(standard_size-start_position)*T)';
 
 %% Principais graficos
 
@@ -88,9 +92,11 @@ F1 = U1*G;
 
 prop_s_y_m = lsim(F1, prop_s_r, prop_s_t);
 prop_s_u_m = lsim(U1, prop_s_r, prop_s_t);
+plot_voltage_time_compare_model(prop_s_y, prop_s_t, prop_s_y_m, prop_s_t, 'Proporcional - Onda Quadrada')
 
 prop_t_y_m = lsim(F1, prop_t_r, prop_t_t);
 prop_t_u_m = lsim(U1, prop_t_r, prop_t_t);
+plot_voltage_time_compare_model(prop_t_y, prop_t_t, prop_t_y_m, prop_t_t, 'Proporcional - Onda Triangular')
 
 %% Controlador PID - Zieger Nichols
 
@@ -115,12 +121,12 @@ G_den = den{1};
 
 reference = zn_s_r;
 time = zn_s_t;
-sim('discrete_controller.slx')
+sim('discrete_controller.slx', simulation_time)
 plot_voltage_time_compare_model(zn_s_y, zn_s_t, y(:,2), y(:,1), 'Ziegler-Nichols - Onda Quadrada')
 
 reference = zn_t_r;
 time = zn_t_t;
-sim('discrete_controller.slx')
+sim('discrete_controller.slx', simulation_time)
 plot_voltage_time_compare_model(zn_t_y, zn_t_t, y(:,2), y(:,1), 'Ziegler-Nichols - Onda Triangular')
 
 %% Controlador PID - Projeto
@@ -145,10 +151,10 @@ G_den = den{1};
 
 reference = pid_s_r;
 time = pid_s_t;
-sim('discrete_controller.slx')
+sim('discrete_controller.slx', simulation_time)
 plot_voltage_time_compare_model(pid_s_y, pid_s_t, y(:,2), y(:,1), 'PID - Onda Quadrada')
 
 reference = pid_t_r;
 time = pid_t_t;
-sim('discrete_controller.slx')
+sim('discrete_controller.slx', simulation_time)
 plot_voltage_time_compare_model(pid_t_y, pid_t_t, y(:,2), y(:,1), 'PID - Onda Triangular')
