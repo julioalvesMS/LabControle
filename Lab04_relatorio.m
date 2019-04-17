@@ -83,9 +83,9 @@ yi = lsim(Fi, ra, ta);
 ui = lsim(Ci/(1+Ci*G), ra, ta);
 
 
-sistema = 'Controlador Equivalente';
+sistema = 'Controlador Analógico';
 
-name = strcat(sistema, ' - Resposta - Comparação com o Objetivo');
+name = strcat(sistema, ' - Resposta - Comparação com o PID');
 figure;
 hold all;
 plot(ta, yi);
@@ -93,7 +93,7 @@ plot(y(:,1), y(:,2));
 ylabel('Tensão [V]');
 xlabel('Tempo [s]');
 title(name);
-legend('Controlador Analógico', 'Controlador Objetivo');
+legend('Controlador Analógico', 'PID');
 hold off;
 saveas(gcf, strcat('imagens/', name, '.png'));
 
@@ -118,9 +118,9 @@ Fr = Cr*G/(1+Cr*G);
 yr = lsim(Fr, ra, ta);
 ur = lsim(Cr/(1+Cr*G), ra, ta);
 
-sistema = 'Controlador Aplicável';
+sistema = 'Controlador Comercial';
 
-name = strcat(sistema, ' - Resposta - Comparação com o Equivalente');
+name = strcat(sistema, ' - Resposta - Comparação com o teórico');
 figure;
 hold all;
 plot(ta, yr);
@@ -128,7 +128,7 @@ plot(ta, yi);
 ylabel('Tensão [V]');
 xlabel('Tempo [s]');
 title(name);
-legend('Controlador Aplicável', 'Controlador Equivalente');
+legend('Controlador Comercial', 'Controlador Teórico');
 hold off;
 saveas(gcf, strcat('imagens/', name, '.png'));
 
@@ -149,13 +149,13 @@ teorico.r = yr;
 teorico.u = ur;
 teorico.y = yr;
 teorico.t = ta;
-teorico.name = 'Teórico';
+teorico.name = 'Comercial';
 
 original.r = exp_r;
 original.u = exp_u;
 original.y = y(:,2);
 original.t = y(:,1);
-original.name = 'Original';
+original.name = 'PID';
 
 data{1} = experimental;
 data{2} = teorico;
