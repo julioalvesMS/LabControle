@@ -1,4 +1,4 @@
-function plot_voltage_time_compare_controller(prop, zn, pid, t, name)
+function plot_voltage_time_compare_controllers(prop, zn, pid, t, name)
 %PLOT_VOLTAGE_CURRENT Plot Voltage x Current
 %   Makes a Voltage X Current plot from the simulation output.
 %   The image will be saved automatically if the folder is argument 
