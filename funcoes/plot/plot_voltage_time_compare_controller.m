@@ -25,6 +25,8 @@ function plot_voltage_time_compare_controller(controllers, name)
     legend(legends);
     
     hold off;
-    saveas(gcf, strcat('imagens/', removeSpecialCharacters(name), '.png'));
+    
+    name = removeSpecialCharacters(name);
+    saveas(gcf, strcat('imagens/', name, '.png'));
 end
 

@@ -8,12 +8,16 @@ function plot_voltage_time_input(u, t, name)
 
     figure;
     
-    plot(t, u);
+    pl = plot(t, u);
+    [~, index] = max(u);
+    str = {'Tempo: ', 'Tensão de Pico: '};
+    datatip(pl, index, str, 'hold');
     
     ylabel('Esforço de Controle [V]');
     xlabel('Tempo [s]');
     title(name);
     
+    name = removeSpecialCharacters(name);
     saveas(gcf, strcat('imagens/', name, '.png'));
 end
 

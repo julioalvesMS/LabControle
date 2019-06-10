@@ -19,6 +19,8 @@ function plot_voltage_time_compare_model(real, tr, model, tm, name)
     legend('Saída Real', 'Saída Modelo');
     
     hold off;
+    
+    name = removeSpecialCharacters(name);
     saveas(gcf, strcat('imagens/', name, '.png'));
 end
 

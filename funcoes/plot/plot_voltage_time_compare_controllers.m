@@ -20,6 +20,8 @@ function plot_voltage_time_compare_controllers(prop, zn, pid, t, name)
     legend('Proporcional', 'Ziegler-Nichols', 'PID');
     
     hold off;
+    
+    name = removeSpecialCharacters(name);
     saveas(gcf, strcat('imagens/', name, '.png'));
 end
 

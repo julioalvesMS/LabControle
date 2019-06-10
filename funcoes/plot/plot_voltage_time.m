@@ -14,6 +14,7 @@ function plot_voltage_time(y, t, name)
     xlabel('t [s]');
     title(name);
     
+    name = removeSpecialCharacters(name);
     saveas(gcf, strcat('imagens/', name, '.png'));
 end
 

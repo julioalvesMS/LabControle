@@ -16,9 +16,9 @@ function plot_voltage_time_compare_controller_input(controllers, name)
         control = controllers{i};
         pl = plot(control.t, control.u);
         
-        [~, index] = max(control.u);
-        str = {'Tempo: ', 'Tensão de Pico: '};
-        datatip(pl, index, str, 'hold');
+        % [~, index] = max(control.u);
+        % str = {'Tempo: ', 'Tensão de Pico: '};
+        % datatip(pl, index, str, 'hold');
         
         legends{i} = control.name;
     end
@@ -30,6 +30,8 @@ function plot_voltage_time_compare_controller_input(controllers, name)
     legend(legends);
     
     hold off;
-    saveas(gcf, strcat('imagens/', removeSpecialCharacters(name), '.png'));
+    
+    name = removeSpecialCharacters(name);
+    saveas(gcf, strcat('imagens/', name, '.png'));
 end
 
