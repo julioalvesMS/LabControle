@@ -229,3 +229,27 @@ for k = 1:4
     name = removeSpecialCharacters(name);
     saveas(gcf, strcat('imagens/', name, '.png'));
 end
+
+
+%% Dados experimentais - Frenagem
+
+
+figure;
+for k = 1:4
+    md = mds(k);
+    ini = regime(k);
+    
+    v = [int2str(md.v) 'v'];
+    
+    subplot(2, 2, k)
+    hold on
+    plot(md.t(1:end-ini+1), md.w(ini:end))
+    hold off
+    ylabel('v [rad/s]')
+    xlabel('t [s]')
+    title(['Parada - ' v])
+    
+end
+name = 'Dados Experimentais - Parada';
+name = removeSpecialCharacters(name);
+saveas(gcf, strcat('imagens/', name, '.png'));

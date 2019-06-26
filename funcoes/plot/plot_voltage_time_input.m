@@ -9,7 +9,7 @@ function plot_voltage_time_input(u, t, name)
     figure;
     
     pl = plot(t, u);
-    [~, index] = max(u);
+    [~, index] = max(abs(u));
     str = {'Tempo: ', 'Tensão de Pico: '};
     datatip(pl, index, str, 'hold');
     

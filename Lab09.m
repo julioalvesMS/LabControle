@@ -12,7 +12,7 @@ addpath(genpath('simulink'))
 
 load('dados_motor.mat')
 
-Vt = [20 50 80];
+Vt = [40 50];
 s = tf('s');
 x0 = [0 0 0]';
 
@@ -44,13 +44,13 @@ plot_rotation_control(p1_data)
 
 %% Proporcional - Projeto 2
 
-%sisotool(G, 0.015111)
+%sisotool(G, 0.29)
 
-Cp2 = 0.015111;
+Cp2 = 0.29;
 C_num = Cp2;
 C_den = 1;
 
-T = 30;
+T = 6;
 
 p2_data = {};
 for i=1:length(Vt)
@@ -97,12 +97,14 @@ plot_rotation_control(i1_data)
 
 %sisotool(G, (0.027127 *(s+0.4757))/s)
 
-kp = 0.0271;
-ki = 0.0129;
+kp = 0.2766;
+ki = 0.1021;
 Cpi1 = kp + ki/s;
 [C_num, C_den] = tfdata(Cpi1, 'v');
 
-T = 30;
+%sisotool(G, Cpi1)
+
+T = 7;
 
 cpi1_data = {};
 for i=1:length(Vt)
